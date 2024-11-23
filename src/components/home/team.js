@@ -8,12 +8,15 @@ export default function Team() {
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
-                        <h2 class="block-title text-center">
-						Our Team 	
-					</h2>
-                        <p class="title-caption text-center">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
-                    </div>
+                <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
+    <h2 class="block-title text-center">
+        Our Services
+    </h2>
+    <p class="title-caption text-center">
+        We offer a variety of high-quality services tailored to meet your needs. From professional event planning and catering to customized solutions for any occasion, our team is dedicated to delivering exceptional results every time.
+    </p>
+</div>
+
                     <div class="team-box">
 
                         <div class="row">
@@ -23,8 +26,9 @@ export default function Team() {
                                         <a href="#"><img src={image1} alt=""/></a>
                                     </div>
                                     <div class="text-col">
-                                        <h3>John Doggett</h3>
-                                        <p>The chef’s talent lies in transforming simple ingredients into extraordinary dishes. With years of dedication and creativity, they craft flavors that delight every palate. Their passion for culinary artistry shines in every plate, combining technique and innovation seamlessly.</p>
+                                    <h3>Quick Party</h3>
+<p>Quick parties are designed for those who value time and simplicity without compromising on quality. Perfect for casual gatherings or short events, they feature light, delicious dishes that are easy to enjoy. Whether it's finger foods, quick bites, or refreshing beverages, a quick party ensures a seamless and satisfying experience for everyone.</p>
+
                                         <ul class="team-social">
                                             <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                             <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
@@ -40,8 +44,9 @@ export default function Team() {
                                         <a href="#"><img src={image2} alt=""/></a>
                                     </div>
                                     <div class="text-col">
-                                        <h3>Jeffrey Spender</h3>
-                                        <p>The chef possesses a unique ability to turn everyday ingredients into culinary masterpieces. Through a combination of expertise and innovation, they create dishes that captivate the senses. Each plate reflects their commitment to excellence.</p>
+                                    <h3>Teabreak Party</h3>
+<p>A teabreak party offers the perfect balance of elegance and simplicity, featuring a selection of light snacks and beverages. With a focus on creating a relaxing atmosphere, this type of event is ideal for casual meet-ups, business meetings, or short breaks. From freshly brewed coffee and tea to delightful pastries and finger foods, a teabreak party ensures every moment is enjoyable and satisfying.</p>
+
                                         <ul class="team-social">
                                             <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                             <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
@@ -57,8 +62,9 @@ export default function Team() {
                                         <a href="#"><img src={image3} alt=""/></a>
                                     </div>
                                     <div class="text-col">
-                                        <h3>Monica Reyes</h3>
-                                        <p>With an unwavering dedication to their craft, the chef elevates cooking into an art form. Their creativity and attention to detail transform every meal into a remarkable experience, leaving diners inspired and satisfied.With an unwavering dedication to their craft.</p>
+                                    <h3>Finger Food</h3>
+<p>Finger food brings convenience and creativity to any event, offering bite-sized delights that are both flavorful and visually appealing. Perfect for casual gatherings or sophisticated soirées, these small, easy-to-eat dishes range from savory canapés to sweet treats. Finger food ensures a seamless dining experience, allowing guests to enjoy delicious bites without the need for formal dining setups.</p>
+
                                         <ul class="team-social">
                                             <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                             <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>

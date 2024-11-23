@@ -79,8 +79,9 @@ export default function SpecialMenu() {
               <div className="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
                 <h2 className="block-title color-white text-center">Today's Special</h2>
                 <h5 className="title-caption text-center">
-                  Seafood is a culinary treasure enjoyed worldwide, celebrated for its fresh and diverse flavors. From succulent shrimp and tender squid to rich salmon and sweet crab, seafood offers endless possibilities for delicious meals.
-                </h5>
+  Highlighted dishes are the true essence of culinary artistry, offering unique flavors that captivate every palate. From signature recipes crafted with care to timeless classics that everyone loves, each dish tells a story of flavor and passion.
+</h5>
+
               </div>
               <div className="special-box">
                 <div id="owl-demo">
@@ -108,6 +109,7 @@ export default function SpecialMenu() {
           </div>
         </div>
       </div>
+      
     </ExclusiveSection>
   );
 }
