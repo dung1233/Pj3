@@ -47,34 +47,25 @@ export default function Banner({ onClose }) {
 
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
 
-  const [selectedMenuCategory, setSelectedMenuCategory] = useState(null); 
+  const [selectedMenuCategory, setSelectedMenuCategory] = useState(null);
 
   const handleMenuCategorySelect = (category) => {
     setSelectedMenuCategory(category);
-    setSelectedSubCategory(null); 
+    setSelectedSubCategory(null);
   };
 
 
 
 
- 
-  const comboItems = [
-    { id: 1, name: 'Gà', items: [{ id: 'a1', name: 'Món A1', price: 15.0 }, { id: 'a2', name: 'Món A2', price: 15.0 }] },
-    { id: 2, name: 'Bò', items: [{ id: 'b1', name: 'Món B1', price: 7.0 }, { id: 'b2', name: 'Món B2', price: 8.0 }] },
-  ];
+  const [isHovered, setIsHovered] = useState(false);
 
-  const sideItems = [
-    { id: 3, name: 'Cơm', items: [{ id: 's1', name: 'Món S1', price: 2.0 }, { id: 's2', name: 'Món S2', price: 1.5 }] },
-    { id: 4, name: 'Cá', items: [{ id: 's3', name: 'Món S3', price: 1.0 }, { id: 's4', name: 'Món S4', price: 1.9 }] },
-  ];
-  // Các mục con của Combo
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(selectedCategory === category ? null : category); 
-    setSelectedSubCategory(null); 
+    setSelectedCategory(selectedCategory === category ? null : category);
+    setSelectedSubCategory(null);
   };
 
-  
+
   const handleSubCategorySelect = (subCategory) => {
     setSelectedSubCategory(subCategory);
   };
@@ -82,7 +73,7 @@ export default function Banner({ onClose }) {
   const [numPeople, setNumPeople] = useState(50); // Giá trị mặc định là 50
 
 
-  
+
 
   const eventOptions = [
     {
@@ -128,7 +119,7 @@ export default function Banner({ onClose }) {
   const [selectedServices, setSelectedServices] = useState({});
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
-    setPopupStep(1); 
+    setPopupStep(1);
   };
   const handleCheckboxChange = (categoryId, optionId) => {
     setSelectedServices((prev) => {
@@ -156,7 +147,7 @@ export default function Banner({ onClose }) {
     setSelectedTime(time);
   };
 
- 
+
   const addItemToOrder = (item) => {
     setOrderItems([...orderItems, item]);
   };
@@ -164,7 +155,7 @@ export default function Banner({ onClose }) {
   const calculateTotal = () => {
     return orderItems.reduce((total, item) => total + item.price, 0).toFixed(2);
   };
-  
+
   const menuCategories = {
     starters: [
       { id: 1, name: 'Salad', price: 5.0 },
@@ -214,7 +205,7 @@ export default function Banner({ onClose }) {
 
 
   const times = ["10:00", "14:00", "17:00", "19:00"];
-  
+
 
 
   // API
@@ -227,13 +218,13 @@ export default function Banner({ onClose }) {
     restaurant: null,
     selectedDishes: [],
     additionalItems: [],
-    customerName: '', 
-    customerPhone: '', 
-    customerEmail: '', 
-    orderNote: '', 
-    customerId: null, 
+    customerName: '',
+    customerPhone: '',
+    customerEmail: '',
+    orderNote: '',
+    customerId: null,
   });
-  
+
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');
     if (token) {
@@ -244,10 +235,10 @@ export default function Banner({ onClose }) {
           },
         })
         .then((response) => {
-          const userId = response.data.customerId; 
+          const userId = response.data.customerId;
           setReservationDetails((prevDetails) => ({
             ...prevDetails,
-            customerId: userId, 
+            customerId: userId,
           }));
         })
         .catch((error) => {
@@ -269,18 +260,18 @@ export default function Banner({ onClose }) {
     const today = new Date();
     const dates = [];
 
-    
+
     const startDate = new Date(today);
     startDate.setDate(today.getDate() + 7);
 
-   
+
     for (let i = 0; i < 10; i++) {
       const futureDate = new Date(startDate);
       futureDate.setDate(startDate.getDate() + i);
 
-     
+
       const year = futureDate.getFullYear();
-      const month = (futureDate.getMonth() + 1).toString().padStart(2, '0'); 
+      const month = (futureDate.getMonth() + 1).toString().padStart(2, '0');
       const day = futureDate.getDate().toString().padStart(2, '0');
       dates.push(`${year}-${month}-${day}`);
     }
@@ -296,7 +287,7 @@ export default function Banner({ onClose }) {
     const numPeople = reservationDetails.numPeople || 0;
     let peoplePerTable;
 
-    
+
     if (table === 6) {
       peoplePerTable = 6;
     } else if (table === 8) {
@@ -305,19 +296,19 @@ export default function Banner({ onClose }) {
       peoplePerTable = 10;
     }
 
-    const numTables = Math.ceil(numPeople / peoplePerTable); 
-    updateReservationDetails('table', table); 
-    updateReservationDetails('numTables', numTables); 
+    const numTables = Math.ceil(numPeople / peoplePerTable);
+    updateReservationDetails('table', table);
+    updateReservationDetails('numTables', numTables);
   };
 
 
   // update when change number of people
   const handleNumPeopleChange = (value) => {
-    const numPeople = Number(value) || 0; 
-    const table = reservationDetails.table; 
+    const numPeople = Number(value) || 0;
+    const table = reservationDetails.table;
     let peoplePerTable;
 
-   
+
     if (table === 6) {
       peoplePerTable = 6;
     } else if (table === 8) {
@@ -326,9 +317,9 @@ export default function Banner({ onClose }) {
       peoplePerTable = 10;
     }
 
-    const numTables = table ? Math.ceil(numPeople / peoplePerTable) : 1; 
-    updateReservationDetails('numPeople', numPeople); 
-    if (table) updateReservationDetails('numTables', numTables); 
+    const numTables = table ? Math.ceil(numPeople / peoplePerTable) : 1;
+    updateReservationDetails('numPeople', numPeople);
+    if (table) updateReservationDetails('numTables', numTables);
   };
 
 
@@ -337,7 +328,7 @@ export default function Banner({ onClose }) {
     const { table, date, time, numPeople, restaurant } = reservationDetails;
 
     if (popupStep === 1) {
-      
+
       if (!table || !date || !time) {
         alert('Please choose : Table, Date and Time!');
         return;
@@ -350,7 +341,7 @@ export default function Banner({ onClose }) {
     }
 
     if (popupStep === 2) {
-      
+
       if (!reservationDetails.restaurant) {
         alert('Please select a restaurant before continuing!');
         return;
@@ -362,31 +353,45 @@ export default function Banner({ onClose }) {
   // End Choose date and time
 
   //Popup choose restaurant
-  const [restaurants, setRestaurants] = useState([]); 
-  const [loading, setLoading] = useState(false); 
-  const [error, setError] = useState(null); 
-  const [isFromAvailableApi, setIsFromAvailableApi] = useState(true); 
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [isFromAvailableApi, setIsFromAvailableApi] = useState(true);
 
   // Fuction call API to get restaurant
+  // Hàm gọi API lấy danh sách nhà hàng
   useEffect(() => {
     const fetchRestaurants = async () => {
       setLoading(true);
       setError(null);
+  
       try {
-        // Gọi API available
+        // Lấy ngày và giờ từ currentReservationDetails
+        const reservationDate = reservationDetails.date; // Ví dụ: "2024-11-30"
+        const reservationTime = reservationDetails.time.includes(':') 
+          && reservationDetails.time.split(':').length === 2 
+          ? `${reservationDetails.time}:00` // Định dạng "HH:mm:ss"
+          : reservationDetails.time;
+  
+        // Gọi API /available với query parameters
         const response = await axios.get(
-          'https://t2305mpk320241031161932.azurewebsites.net/api/Restaurant/available'
+          'https://t2305mpk320241031161932.azurewebsites.net/api/Restaurant/available',
+          {
+            params: {
+              reservationDate, // Thêm reservationDate vào query
+              reservationTime, // Thêm reservationTime vào query
+            },
+          }
         );
+  
         if (response.data && response.data.length > 0) {
-          setRestaurants(response.data); 
-          setIsFromAvailableApi(true); 
+          // Nếu có nhà hàng còn chỗ
+          setRestaurants(response.data); // Lưu danh sách nhà hàng
+          setIsFromAvailableApi(true); // Đánh dấu là từ API available
         } else {
-          
-          const fallbackResponse = await axios.get(
-            'https://t2305mpk320241031161932.azurewebsites.net/api/Restaurant/reservations'
-          );
-          setRestaurants(fallbackResponse.data || []);
-          setIsFromAvailableApi(false); 
+          // Nếu không có nhà hàng nào còn chỗ
+          setRestaurants([]); // Đặt danh sách nhà hàng rỗng
+          setIsFromAvailableApi(false); // Đánh dấu không còn chỗ
         }
       } catch (err) {
         setError('Không thể tải danh sách nhà hàng.');
@@ -394,16 +399,18 @@ export default function Banner({ onClose }) {
         setLoading(false);
       }
     };
-
+  
     fetchRestaurants();
-  }, []);
+  }, [reservationDetails.date, reservationDetails.time]); // Theo dõi sự thay đổi của ngày và giờ
+  
+
   const getRestaurantName = (restaurantId) => {
     const restaurant = restaurants.find((restaurant) => restaurant.restaurantId === restaurantId);
     return restaurant ? restaurant.restaurantName : 'Unknown';
   };
   // End choose restaurant
   // Popup choose food
-  const [menuItems, setMenuItems] = useState([]); 
+  const [menuItems, setMenuItems] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
   // Fuction call API to get categoryId
@@ -414,9 +421,9 @@ export default function Banner({ onClose }) {
       const response = await axios.get(
         `https://t2305mpk320241031161932.azurewebsites.net/api/MenuItem/by-category/${categoryId}`
       );
-      setMenuItems(response.data || []); 
-      setSelectedCategoryId(categoryId); 
-      setSelectedType(null); 
+      setMenuItems(response.data || []);
+      setSelectedCategoryId(categoryId);
+      setSelectedType(null);
     } catch (err) {
       setError('Không thể tải dữ liệu món ăn.');
     } finally {
@@ -437,8 +444,8 @@ export default function Banner({ onClose }) {
         const defaultVariant = dish.itemVariants[0]; // Get the first variant
         selectedDishes.push({
           ...dish,
-          selectedVariant: defaultVariant.variantId, 
-          price: defaultVariant.price, 
+          selectedVariant: defaultVariant.variantId,
+          price: defaultVariant.price,
         });
       }
 
@@ -452,14 +459,14 @@ export default function Banner({ onClose }) {
   const [eventDecorations, setEventDecorations] = useState([]);
   const [musicServices, setMusicServices] = useState([]);
   const handleConfirm = () => {
-    setIsConfirmationPopupOpen(true); 
+    setIsConfirmationPopupOpen(true);
     console.log('After pick food done:', reservationDetails);
   };
-  
+
   const toggleCategory = (categoryId) => {
     setExpandedCategory((prev) => (prev === categoryId ? null : categoryId));
   }
- 
+
   const fetchAdditionalItems = async () => {
     setLoading(true);
     setError(null);
@@ -480,26 +487,26 @@ export default function Banner({ onClose }) {
     }
   };
 
- 
+
   useEffect(() => {
     if (isConfirmationPopupOpen) {
       fetchAdditionalItems();
     }
   }, [isConfirmationPopupOpen])
- 
+
   const toggleAdditionalItem = (item) => {
     setReservationDetails((prev) => {
       const additionalItems = [...prev.additionalItems];
       const index = additionalItems.findIndex((selectedItem) => selectedItem.menuItemNo === item.menuItemNo);
 
       if (index >= 0) {
-       
+
         additionalItems.splice(index, 1);
       } else {
-       
+
         additionalItems.push({
           ...item,
-          selectedVariant: item.itemVariants[0]?.variantId || 0, 
+          selectedVariant: item.itemVariants[0]?.variantId || 0,
         });
       }
 
@@ -518,28 +525,28 @@ export default function Banner({ onClose }) {
 
     let totalCost = 0;
 
-   
+
     selectedDishes.forEach((dish) => {
       if (dish.categoryId === 4) {
-        totalCost += dish.price * numTables; 
+        totalCost += dish.price * numTables;
       } else {
         totalCost += dish.price * numTables;
       }
     });
 
-    
+
     additionalItems.forEach((item) => {
-      totalCost += item.price; 
+      totalCost += item.price;
     });
 
     return totalCost.toFixed(2);
   };
 
 
-  
+
   const calculateDepositAmount = () => {
     const totalCost = parseFloat(calculateTotalCost());
-    return (totalCost * 0.3).toFixed(2); 
+    return (totalCost * 0.3).toFixed(2);
   };
 
   const handleInputChange = (field, value) => {
@@ -551,12 +558,12 @@ export default function Banner({ onClose }) {
   };
 
   useEffect(() => {
-    const eventDateTime = `${reservationDetails.date}T${reservationDetails.time}:00`; 
+    const eventDateTime = `${reservationDetails.date}T${reservationDetails.time}:00`;
     console.log('Reservation time Updated:', eventDateTime);
     console.log('Reservation Details Updated:', reservationDetails);
   }, [reservationDetails]);
 
- 
+
   const reservationDetailsRef = useRef(reservationDetails);
 
   useEffect(() => {
@@ -564,11 +571,11 @@ export default function Banner({ onClose }) {
   }, [reservationDetails]);
 
   const handleCheckout = async () => {
-    
+
     const currentReservationDetails = reservationDetailsRef.current;
     // const currentReservationDetails = { ...reservationDetails };
 
-    
+
     // if (
     //   !currentReservationDetails.customerName ||
     //   !currentReservationDetails.customerPhone ||
@@ -582,11 +589,11 @@ export default function Banner({ onClose }) {
 
     try {
 
-      const eventDateTime = `${currentReservationDetails.date}T${currentReservationDetails.time}:00`; 
+      const eventDateTime = `${currentReservationDetails.date}T${currentReservationDetails.time}:00`;
 
 
       const orderPayload = {
-        customerId: currentReservationDetails.customerId !== undefined ? currentReservationDetails.customerId : null, 
+        customerId: currentReservationDetails.customerId !== undefined ? currentReservationDetails.customerId : null,
         orderDate: new Date().toISOString().split('T')[0],
         deliveryDate: currentReservationDetails.date,
         name: currentReservationDetails.customerName,
@@ -599,14 +606,14 @@ export default function Banner({ onClose }) {
         depositCost: parseFloat(calculateDepositAmount()),
         totalCost: parseFloat(calculateTotalCost()),
         orderNote: currentReservationDetails.orderNote || '',
-        status: 'Pending',  
+        status: 'Pending',
 
       };
 
 
       console.log('Order Payload:', orderPayload);
 
-      
+
       const orderResponse = await axios.post(
         ' https://t2305mpk320241031161932.azurewebsites.net/api/CustOrder',
         orderPayload,
@@ -615,7 +622,7 @@ export default function Banner({ onClose }) {
       console.log('API Response:', orderResponse.data);
       const orderId = orderResponse.data.orderId;
       console.log('Order ID:', orderId); // Debug
-    
+
       const allItems = [...currentReservationDetails.selectedDishes, ...currentReservationDetails.additionalItems];
 
       for (const item of allItems) {
@@ -634,16 +641,16 @@ export default function Banner({ onClose }) {
           { headers: { 'Content-Type': 'application/json' } }
         );
       }
-      
+
       try {
         const emailResponse = await axios.post(
           `https://t2305mpk320241031161932.azurewebsites.net/api/Mail/invoice/${orderId}`,
 
           { headers: { 'Content-Type': 'application/json' } }
         );
-       
+
         try {
-         
+
           const time = currentReservationDetails.time;
           const formattedTime = time.includes(':') && time.split(':').length === 2 ? `${time}:00` : time;
 
@@ -675,12 +682,12 @@ export default function Banner({ onClose }) {
         alert(`Payment successful but Sending email failed: ${JSON.stringify(emailError.response?.data || emailError.message)}`);
       }
 
-      
+
       console.log('Payment successful');
-      
+
       navigate(`/orderDetail/${orderId}`);
     } catch (error) {
-     
+
       console.error('Error during payment:', error.response?.data || error.message);
       alert(`Payment failed! Error details: ${JSON.stringify(error.response?.data || error.message)}`);
     }
@@ -690,10 +697,10 @@ export default function Banner({ onClose }) {
   const handleCategoryToggle = (category) => {
     setSelectedCategory((prev) => (prev === category ? null : category));
   };
-  const [allMenuItems, setAllMenuItems] = useState([]); 
-  const [selectedType, setSelectedType] = useState(null); 
+  const [allMenuItems, setAllMenuItems] = useState([]);
+  const [selectedType, setSelectedType] = useState(null);
 
-  
+
   const fetchFishMenuItems = async (type) => {
     setLoading(true);
     setError(null);
@@ -701,9 +708,9 @@ export default function Banner({ onClose }) {
       const response = await axios.get(
         'https://t2305mpk320241031161932.azurewebsites.net/api/MenuItem/with-variants'
       );
-      setMenuItems(response.data.filter((item) => item.type === type) || []); 
-      setSelectedCategoryId(null); 
-      setSelectedType(type); 
+      setMenuItems(response.data.filter((item) => item.type === type) || []);
+      setSelectedCategoryId(null);
+      setSelectedType(type);
     } catch (err) {
       setError('Unable to load  data.');
     } finally {
@@ -712,9 +719,9 @@ export default function Banner({ onClose }) {
   };
   //End sidebar
 
-  
-  const [searchQuery, setSearchQuery] = useState(''); 
-  
+
+  const [searchQuery, setSearchQuery] = useState('');
+
   const fetchMenuItemsBySearch = async (query) => {
     setLoading(true);
     setError(null);
@@ -726,11 +733,11 @@ export default function Banner({ onClose }) {
         (item) =>
           item.itemName.toLowerCase().includes(query.toLowerCase()) &&
           item.categoryId >= 1 &&
-          item.categoryId <= 4 
+          item.categoryId <= 4
       );
       setMenuItems(filteredItems || []);
       setSelectedType(null);
-      setSelectedCategoryId(null); 
+      setSelectedCategoryId(null);
     } catch (err) {
       setError('Unable to load search data.');
     } finally {
@@ -797,7 +804,7 @@ export default function Banner({ onClose }) {
                               <label style={{ fontWeight: 'bold', color: '#333' }}>Please select how many people in one table</label>
                               {/* Choose table */}
                               <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
-                              
+
                                 <div
                                   onClick={() => selectTable(6)}
                                   style={{
@@ -941,7 +948,7 @@ export default function Banner({ onClose }) {
                                       }}
                                     />
                                   </div>
-                                  
+
                                   <div style={{ marginTop: '20px', display: 'flex', gap: '20px' }}>
                                     <label style={{ fontWeight: 'bold', color: '#333' }}>Number of tables:</label>
                                     <input
@@ -971,42 +978,73 @@ export default function Banner({ onClose }) {
                               <h2 style={{ textAlign: 'center', color: '#333' }}>Choose a Restaurant</h2>
                               {loading && <p>Loading restaurant list...</p>}
                               {error && <p>{error}</p>}
-                              <div>
+                              <div style={{ marginTop: '20px' }}>
                                 {restaurants.length > 0 ? (
                                   restaurants.map((restaurant, index) => (
                                     <div
                                       key={index}
-                                      onClick={() => updateReservationDetails('restaurant', restaurant.restaurantId)} 
+                                      onClick={() => updateReservationDetails('restaurant', restaurant.restaurantId)}
                                       style={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        padding: '10px',
-                                        borderBottom: index < restaurants.length - 1 ? '1px solid #e0e0e0' : 'none',
+                                        padding: '15px',
+                                        borderRadius: '8px',
+                                        marginBottom: '15px',
+                                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                                         cursor: 'pointer',
                                         backgroundColor:
-                                          reservationDetails.restaurant === restaurant.restaurantId ? '#e0f0ff' : 'white',
+                                          reservationDetails.restaurant === restaurant.restaurantId ? '#e6f7ff' : 'white',
                                         border:
                                           reservationDetails.restaurant === restaurant.restaurantId
-                                            ? '2px solid #3b82f6'
+                                            ? '2px solid #1d4ed8'
                                             : '1px solid #e0e0e0',
+                                        transition: 'background-color 0.3s ease, border 0.3s ease',
                                       }}
                                     >
+                                      {/* Hình ảnh nhà hàng */}
                                       <img
                                         src={restaurant.imageURL || 'https://via.placeholder.com/100'}
                                         alt={restaurant.restaurantName}
-                                        style={{ width: '100px', height: '100px', borderRadius: '5px' }}
+                                        style={{
+                                          width: '120px',
+                                          height: '120px',
+                                          borderRadius: '10px',
+                                          objectFit: 'cover',
+                                        }}
                                       />
-                                      <div style={{ marginLeft: '15px', flex: 1 }}>
-                                        <h3 style={{ margin: '0', fontSize: '16px', color: '#333' }}>{restaurant.restaurantName}</h3>
-                                        <p style={{ margin: '5px 0', fontSize: '14px', color: '#666' }}>
+
+                                      {/* Thông tin nhà hàng */}
+                                      <div style={{ marginLeft: '20px', flex: 1 }}>
+                                        <h3
+                                          style={{
+                                            margin: '0',
+                                            fontSize: '18px',
+                                            fontWeight: 'bold',
+                                            color: '#333',
+                                          }}
+                                        >
+                                          {restaurant.restaurantName}
+                                        </h3>
+                                        <p
+                                          style={{
+                                            margin: '5px 0',
+                                            fontSize: '14px',
+                                            color: '#555',
+                                          }}
+                                        >
                                           {restaurant.address}
                                         </p>
                                       </div>
+
+                                      {/* Trạng thái */}
                                       <span
                                         style={{
                                           fontSize: '14px',
                                           fontWeight: 'bold',
-                                          color: isFromAvailableApi ? 'green' : 'red', 
+                                          padding: '5px 10px',
+                                          borderRadius: '20px',
+                                          backgroundColor: isFromAvailableApi ? '#d1fae5' : '#fee2e2',
+                                          color: isFromAvailableApi ? '#065f46' : '#9b1c1c',
                                         }}
                                       >
                                         {isFromAvailableApi ? 'Available' : 'Full'}
@@ -1014,9 +1052,13 @@ export default function Banner({ onClose }) {
                                     </div>
                                   ))
                                 ) : (
-                                  <p>No restaurants available.</p>
+                                  <p style={{ textAlign: 'center', fontSize: '16px', color: '#999' }}>
+                                    Fully booked on the day {reservationDetails.date} at {reservationDetails.time}.
+                                    There are no restaurants available. Please select another time or date.
+                                  </p>
                                 )}
                               </div>
+
                             </>
                           )}
 
@@ -1043,9 +1085,9 @@ export default function Banner({ onClose }) {
                                     onChange={(e) => {
                                       setSearchQuery(e.target.value);
                                       if (e.target.value.trim() === '') {
-                                        setMenuItems([]); 
+                                        setMenuItems([]);
                                       } else {
-                                        fetchMenuItemsBySearch(e.target.value); 
+                                        fetchMenuItemsBySearch(e.target.value);
                                       }
                                     }}
                                     placeholder="Search for food..."
@@ -1060,7 +1102,7 @@ export default function Banner({ onClose }) {
                                     }}
                                   />
                                   <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', fontSize: '18px', color: 'black' }}>
-                                    
+
                                     <button
                                       onClick={() => handleCategoryToggle('chicken')}
                                       style={{
@@ -1078,7 +1120,7 @@ export default function Banner({ onClose }) {
                                       <div>
                                         <h2 style={{
                                           fontSize: '20px',
-                                          fontFamily: "'Nunito', sans-serif",
+                                          fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
                                           color: '#0F172B',
 
                                         }}>Chicken Dishes</h2>
@@ -1097,7 +1139,7 @@ export default function Banner({ onClose }) {
                                         }}
                                       >
                                         <button
-                                          onClick={() => fetchFishMenuItems('Fried Chicken')} 
+                                          onClick={() => fetchFishMenuItems('Fried Chicken')}
                                           style={{
                                             padding: '5px 10px',
                                             fontSize: '14px',
@@ -1111,7 +1153,7 @@ export default function Banner({ onClose }) {
                                           Fried Chicken
                                         </button>
                                         <button
-                                          onClick={() => fetchFishMenuItems('Steamed chicken')} 
+                                          onClick={() => fetchFishMenuItems('Steamed chicken')}
                                           style={{
                                             padding: '5px 10px',
                                             fontSize: '14px',
@@ -1128,7 +1170,7 @@ export default function Banner({ onClose }) {
 
 
 
-                                    
+
                                     <button
                                       onClick={() => handleCategoryToggle('fish')}
                                       style={{
@@ -1144,7 +1186,7 @@ export default function Banner({ onClose }) {
                                       <div>
                                         <h2 style={{
                                           fontSize: '20px',
-                                          fontFamily: "'Nunito', sans-serif",
+                                          fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
                                           color: '#0F172B',
 
                                         }}>Fish Dishes</h2>
@@ -1164,7 +1206,7 @@ export default function Banner({ onClose }) {
                                         }}
                                       >
                                         <button
-                                          onClick={() => fetchFishMenuItems('Fresh fish')} 
+                                          onClick={() => fetchFishMenuItems('Fresh fish')}
                                           style={{
                                             padding: '5px 10px',
                                             fontSize: '14px',
@@ -1178,7 +1220,7 @@ export default function Banner({ onClose }) {
                                           Fresh fish
                                         </button>
                                         <button
-                                          onClick={() => fetchFishMenuItems('Fried Fish')} 
+                                          onClick={() => fetchFishMenuItems('Fried Fish')}
                                           style={{
                                             padding: '5px 10px',
                                             fontSize: '14px',
@@ -1215,7 +1257,7 @@ export default function Banner({ onClose }) {
                                     )} */}
 
                                     <button
-                                      onClick={() => fetchFishMenuItems('Rice')} 
+                                      onClick={() => fetchFishMenuItems('Rice')}
                                       style={{
 
                                         padding: '10px',
@@ -1230,14 +1272,14 @@ export default function Banner({ onClose }) {
                                       <div>
                                         <h2 style={{
                                           fontSize: '20px',
-                                          fontFamily: "'Nunito', sans-serif",
+                                          fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
                                           color: '#0F172B',
 
                                         }}>Rice</h2>
                                       </div>
                                     </button>
                                     <button
-                                      onClick={() => fetchFishMenuItems('Beef')} 
+                                      onClick={() => fetchFishMenuItems('Beef')}
                                       style={{
                                         padding: '10px',
                                         fontSize: '16px',
@@ -1251,7 +1293,7 @@ export default function Banner({ onClose }) {
                                       <div>
                                         <h2 style={{
                                           fontSize: '20px',
-                                          fontFamily: "'Nunito', sans-serif",
+                                          fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
                                           color: '#0F172B',
 
                                         }}>Beef</h2>
@@ -1261,111 +1303,135 @@ export default function Banner({ onClose }) {
                                 </div>
 
                                 {/* Menu */}
-                                <div style={{ padding: '20px', width: '70%' }}>
+                                <div style={{ padding: '20px', width: '70%', background: '#f5f5f5' }}>
 
-                                  
-                                  <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', justifyContent: 'space-around' }}>
+
+                                  <nav style={{
+                                    display: 'flex',
+                                    gap: '20px',
+                                    margin: '20px 0',
+                                    background: 'white',
+                                    padding: '15px',
+                                    justifyContent: 'space-evenly',
+                                    borderRadius: '8px',
+                                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+                                  }}>
                                     <button
-                                      onClick={() => fetchMenuItems(1)} // Starters
                                       style={{
-                                        padding: '10px',
-
-                                        backgroundColor: selectedCategoryId === 1 ? 'rgb(254, 161, 22)' : '#ddd',
-                                        color: selectedCategoryId === 1 ? 'white' : 'black',
-                                        borderRadius: '5px',
-                                        cursor: 'pointer',
-                                        border: 'none',
+                                        padding: "10px 20px",
+                                        border: "none",
+                                        background: "transparent",
+                                        cursor: "pointer",
+                                        fontWeight: "500",
+                                        color: selectedCategoryId === 1 ? "#ff6b2b" : "#666",
+                                        borderBottom: selectedCategoryId === 1 ? "2px solid #ff6b2b" : "none",
+                                        transition: "all 0.3s ease",
+                                      }}
+                                      onClick={() => {
+                                        setSelectedCategoryId(1);
+                                        fetchMenuItems(1);
                                       }}
                                     >
-                                      🥗
-                                      <h3 style={{ fontSize: '17px', width: '100px' }}> Starters</h3>
+                                      Starters
 
                                     </button>
                                     <button
                                       onClick={() => fetchMenuItems(2)} // Main Course
                                       style={{
-                                        padding: '10px',
-                                        backgroundColor: selectedCategoryId === 2 ? 'rgb(254, 161, 22)' : '#ddd',
-                                        color: selectedCategoryId === 2 ? 'white' : 'black',
-                                        borderRadius: '5px',
-                                        cursor: 'pointer',
-                                        border: 'none',
+                                        padding: "10px 20px",
+                                        border: "none",
+                                        background: "transparent",
+                                        cursor: "pointer",
+                                        fontWeight: "500",
+                                        color: selectedCategoryId === 2 ? "#ff6b2b" : "#666",
+                                        borderBottom: selectedCategoryId === 2 ? "2px solid #ff6b2b" : "none",
+                                        transition: "all 0.3s ease",
                                       }}
                                     >
-                                      🍖
-                                      <h3 style={{ fontSize: '17px', width: '100px' }}> Main Course</h3>
+
+                                      Main Course
 
                                     </button>
                                     <button
                                       onClick={() => fetchMenuItems(3)} // Desserts
                                       style={{
-                                        padding: '10px',
-                                        backgroundColor: selectedCategoryId === 3 ? 'rgb(254, 161, 22)' : '#ddd',
-                                        color: selectedCategoryId === 3 ? 'white' : 'black',
-                                        borderRadius: '5px',
-                                        cursor: 'pointer',
-                                        border: 'none',
+                                        padding: "10px 20px",
+                                        border: "none",
+                                        background: "transparent",
+                                        cursor: "pointer",
+                                        fontWeight: "500",
+                                        color: selectedCategoryId === 3 ? "#ff6b2b" : "#666",
+                                        borderBottom: selectedCategoryId === 3 ? "2px solid #ff6b2b" : "none",
+                                        transition: "all 0.3s ease",
                                       }}
                                     >
-                                      🍰
-                                      <h3 style={{ fontSize: '17px', width: '100px' }}> Desserts</h3>
+                                      Desserts
 
                                     </button>
                                     <button
                                       onClick={() => fetchMenuItems(4)} // Drinks
                                       style={{
-                                        padding: '10px',
-                                        backgroundColor: selectedCategoryId === 4 ? 'rgb(254, 161, 22)' : '#ddd',
-                                        color: selectedCategoryId === 4 ? 'white' : 'black',
-                                        borderRadius: '5px',
-                                        cursor: 'pointer',
-                                        border: 'none',
+                                        padding: "10px 20px",
+                                        border: "none",
+                                        background: "transparent",
+                                        cursor: "pointer",
+                                        fontWeight: "500",
+                                        color: selectedCategoryId === 4 ? "#ff6b2b" : "#666",
+                                        borderBottom: selectedCategoryId === 4 ? "2px solid #ff6b2b" : "none",
+                                        transition: "all 0.3s ease",
                                       }}
                                     >
-                                      🥤
-                                      <h3 style={{ fontSize: '17px', width: '100px' }}>Drinks</h3>
+                                      Drinks
                                     </button>
-                                  </div>
+                                  </nav>
 
-                                  
+
                                   {loading && <p>Đang tải dữ liệu...</p>}
                                   {error && <p>{error}</p>}
 
-                                 
-                                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '37px', height: '90%', padding: '20px', backgroundColor: '#f5f5f5', alignContent: 'flex-start' }}>
+
+                                  <div style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))",
+                                    gap: "20px",
+                                    marginTop: "20px",
+                                  }}>
                                     {menuItems.map((item) => (
                                       <div
                                         key={item.menuItemNo}
                                         onClick={() => toggleDish(item)}
+                                        onMouseEnter={() => setIsHovered(true)} // Khi chuột di vào
+                                        onMouseLeave={() => setIsHovered(false)} // Khi chuột rời đi
                                         style={{
-                                          width: '150px',
-                                          height: '200px',
-                                          border: reservationDetails.selectedDishes.some((dish) => dish.id === item.menuItemNo)
-                                            ? '2px solid #4CAF50'
-                                            : '1px solid #ddd',
-                                          borderRadius: '8px',
-                                          padding: '10px',
-                                          backgroundColor: 'white',
-                                          textAlign: 'center',
-                                          color: 'black',
-                                          cursor: 'pointer',
+                                          border: reservationDetails.selectedDishes.some(
+                                            (dish) => dish.id === item.menuItemNo
+                                          )
+                                            ? "2px solid #4CAF50"
+                                            : "1px solid #ddd",
+                                          background: "white",
+                                          borderRadius: "12px",
+                                          transform: isHovered ? "translateY(-5px)" : "translateY(0)", // Dịch chuyển khi hover
+                                          transition: "transform 0.3s ease", // Hiệu ứng mượt
+                                          overflow: "hidden",
+                                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                                         }}
                                       >
                                         <div style={{ backgroundColor: '#e0e0e0', borderRadius: '5px' }}>
                                           <img
                                             src={item.imageURL || 'https://via.placeholder.com/100'}
                                             alt={item.itemName}
-                                            style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'cover' }}
+                                            style={{ Width: '100%', height: '171px', objectFit: 'cover' }}
                                           />
                                         </div>
                                         <div style={{ marginTop: '10px' }}>
                                           <span style={{
-                                            fontFamily: "'Nunito', sans-serif",
-                                            color: '#0F172B',
-                                            fontWeight: '800',
-                                            fontSize: '15px'
+                                            fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+                                            fontSize: "18px",
+                                            color: 'black',
+                                            fontWeight: 600,
+                                            marginBottom: "8px",
                                           }}>{item.itemName}</span>
-                                          <p style={{ color: 'rgb(254, 161, 22)' }}>${item.itemVariants[0]?.price?.toFixed(2) || 'N/A'}</p>
+                                          <div style={{ color: '#ff6b2b', fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", fontSize: "16px", fontWeight: 600 }}>${item.itemVariants[0]?.price?.toFixed(2) || 'N/A'}</div>
                                         </div>
                                       </div>
                                     ))}
@@ -1383,6 +1449,8 @@ export default function Banner({ onClose }) {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'space-between',
+
+
                                   }}
                                 >
                                   <h2 style={{ textAlign: 'center' }}>Current Order</h2>
@@ -1393,6 +1461,7 @@ export default function Banner({ onClose }) {
                                       padding: '10px',
                                       marginBottom: '20px',
                                       color: 'black',
+                                      overflowY: 'auto', // Added to enable vertical scrolling
                                     }}
                                   >
                                     {reservationDetails.selectedDishes.length > 0 ? (
@@ -1413,9 +1482,9 @@ export default function Banner({ onClose }) {
                                               <div>
                                                 {' '}
                                                 <select
-                                                  value={dish.selectedVariant} 
+                                                  value={dish.selectedVariant}
                                                   onChange={(e) => {
-                                                    const newVariantId = parseInt(e.target.value, 10); 
+                                                    const newVariantId = parseInt(e.target.value, 10);
                                                     const newVariant = dish.itemVariants.find(
                                                       (variant) => variant.variantId === newVariantId
                                                     );
@@ -1445,7 +1514,7 @@ export default function Banner({ onClose }) {
 
 
                                           <button
-                                            onClick={() => toggleDish(dish)} 
+                                            onClick={() => toggleDish(dish)}
                                             style={{
                                               border: 'none',
                                               backgroundColor: 'red',
@@ -1464,10 +1533,10 @@ export default function Banner({ onClose }) {
                                     )}
                                   </div>
                                   <div style={{ fontWeight: 'bold', marginBottom: '20px', color: 'black' }}>
-                                    Tổng: $
+                                    ToTal: $
                                     {reservationDetails.selectedDishes
                                       .reduce((total, dish) => total + dish.price, 0)
-                                      .toFixed(2)} (Giá của 1 bàn)
+                                      .toFixed(2)} ( 1 Table)
                                   </div>
                                   <button
                                     onClick={handleConfirm}
@@ -1511,13 +1580,13 @@ export default function Banner({ onClose }) {
                                       >
                                         <h2 style={{ fontSize: '24px', color: '#333' }}>Confirm table reservation</h2>
                                         <p style={{ fontSize: '16px', color: '#555', marginBottom: '20px' }}>
-                                        Thank you for booking your table. Please select additional services if needed:
+                                          Thank you for booking your table. Please select additional services if needed:
                                         </p>
 
-                                        {loading && <p>Đang tải dữ liệu...</p>}
+                                        {loading && <p>Loading...</p>}
                                         {error && <p>{error}</p>}
 
-                                        
+
                                         <div
                                           style={{
                                             marginBottom: '20px',
@@ -1532,7 +1601,7 @@ export default function Banner({ onClose }) {
                                               padding: '15px 20px',
                                               cursor: 'pointer',
                                             }}
-                                            onClick={() => toggleCategory(5)} 
+                                            onClick={() => toggleCategory(5)}
                                           >
                                             <h3 style={{ fontSize: '18px', color: '#333' }}>Event decoration</h3>
                                           </div>
@@ -1551,7 +1620,7 @@ export default function Banner({ onClose }) {
                                                     borderRadius: '5px',
                                                   }}
                                                 >
-                                                 
+
                                                   <img
                                                     src={item.imageURL}
                                                     alt={item.itemName}
@@ -1563,7 +1632,7 @@ export default function Banner({ onClose }) {
                                                       border: '1px solid #ccc',
                                                     }}
                                                   />
-                                                 
+
                                                   <div style={{ flex: 1 }}>
                                                     <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: '#333' }}>
 
@@ -1588,7 +1657,7 @@ export default function Banner({ onClose }) {
                                           )}
                                         </div>
 
-                                       
+
                                         <div
                                           style={{
                                             marginBottom: '20px',
@@ -1603,7 +1672,7 @@ export default function Banner({ onClose }) {
                                               padding: '15px 20px',
                                               cursor: 'pointer',
                                             }}
-                                            onClick={() => toggleCategory(6)} 
+                                            onClick={() => toggleCategory(6)}
                                           >
                                             <h3 style={{ fontSize: '18px', color: '#333' }}>Event service</h3>
                                           </div>
@@ -1622,7 +1691,7 @@ export default function Banner({ onClose }) {
                                                     borderRadius: '5px',
                                                   }}
                                                 >
-                                                 
+
                                                   <img
                                                     src={item.imageURL}
                                                     alt={item.itemName}
@@ -1634,7 +1703,7 @@ export default function Banner({ onClose }) {
                                                       border: '1px solid #ccc',
                                                     }}
                                                   />
-                                                  
+
                                                   <div style={{ flex: 1 }}>
                                                     <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: '#333' }}>
 
@@ -1662,8 +1731,8 @@ export default function Banner({ onClose }) {
 
                                         <button
                                           onClick={() => {
-                                            setIsConfirmationPopupOpen(false); 
-                                            setIsOrderPopupOpen(true); 
+                                            setIsConfirmationPopupOpen(false);
+                                            setIsOrderPopupOpen(true);
                                             console.log('Order confirmed:', reservationDetails);
                                           }}
                                           style={{
@@ -1718,12 +1787,16 @@ export default function Banner({ onClose }) {
                                       width: '90%',
                                       height: '90%',
                                       display: 'flex',
-                                      flexDirection: 'row', 
+                                      flexDirection: 'row',
                                       gap: '20px',
                                     }}
                                   >
-                                    
-                                    <div style={{ flex: 1 }}>
+
+                                    <div style={{
+                                      flex: 1,
+                                      overflowY: 'auto', // Added to enable vertical scrolling
+                                      height: '800px',
+                                    }}>
                                       <h2 style={{ fontSize: '24px', color: '#333', marginBottom: '20px' }}>Menu Details</h2>
                                       <div style={{ textAlign: 'left', fontSize: '16px' }}>
                                         {reservationDetails.selectedDishes.map((dish) => (
@@ -1732,7 +1805,7 @@ export default function Banner({ onClose }) {
                                               {dish.categoryId === 1 ? 'STARTERS' : dish.categoryId === 2 ? 'MAIN DISHES' : dish.categoryId === 3 ? 'DESERTS' : 'DRINKS'}
                                             </h3>
                                             <div
-                                              
+
                                               style={{
                                                 display: 'flex',         // Flex container
                                                 justifyContent: 'space-between', // Space between content
@@ -1740,11 +1813,11 @@ export default function Banner({ onClose }) {
                                                 alignItems: 'center',    // Align items vertically
                                               }}
                                             >
-                                               <div>
-                                            <strong>{dish.itemName}</strong> x {reservationDetails.numTables} 
+                                              <div>
+                                                <strong>{dish.itemName}</strong> x {reservationDetails.numTables}
+                                              </div>
+                                              <div style={{ fontWeight: 'bold' }}>${dish.price.toFixed(2)}</div>
                                             </div>
-                                            <div style={{ fontWeight: 'bold' }}>${dish.price.toFixed(2)}</div>
-                                          </div>
                                           </div>
                                         ))}
                                         {reservationDetails.additionalItems.map((item) => (
@@ -1753,7 +1826,7 @@ export default function Banner({ onClose }) {
                                               {item.categoryId === 5 ? 'Event Decorations' : 'Event Services'}
                                             </h3>
                                             <div
-                                              
+
                                               style={{
                                                 display: 'flex',         // Flex container
                                                 justifyContent: 'space-between', // Space between content
@@ -1769,50 +1842,52 @@ export default function Banner({ onClose }) {
                                           </div>
                                         ))}
                                       </div>
-                                      <hr style={{ margin: '20px 0' }} />
-                                      <div style={{ fontWeight: 'bold', fontSize: '18px', textAlign: 'right' }}>
-                                        Total Cost: $ {calculateTotalCost()}
-                                      </div>
-                                      <div style={{ fontWeight: 'bold', fontSize: '18px', textAlign: 'right', color: 'red' }}>
-                                        Deposit Total (30% of Total Cost): $ {calculateDepositAmount()}
-                                      </div>
-                                      {/* //thanh toán */}
-                                      {/* <button
-                                        onClick={handleCheckout}
-                                        style={{
-                                          fontSize: '36px',
-                                          color: 'black',
-                                          cursor: 'pointer',
-                                          border: 'none',
-                                          background: 'none',
-                                        }}
-                                      >Test</button> */}
-                                      <PayPalButtons
-                                        style={{ layout: 'vertical' }}
-                                        createOrder={(data, actions) => {
 
-                                          return actions.order.create({
-                                            purchase_units: [{
-                                              amount: {
-                                                value: calculateDepositAmount(),
-                                              },
-                                            }],
-                                          });
+                                      {/* Phần giá và thanh toán */}
+                                      <div
+                                        style={{
+                                          marginTop: '10px',
+                                          paddingTop: '10px',
+                                          borderTop: '1px solid #ddd',
+                                          position: 'sticky',
+                                          bottom: 0,
+                                          backgroundColor: 'white',
                                         }}
-                                        onApprove={async (data, actions) => {
-                                          const order = await actions.order.capture();
-                                          console.log('PayPal Order:', order);
-                                          alert(`Transaction completed by ${order.payer.name.given_name}`);
-                                          handleCheckout();
-                                        }}
-                                        onError={(err) => {
-                                          console.error('PayPal Checkout Error:', err);
-                                          alert('Payment failed');
-                                        }}
-                                      />
+                                      >
+                                        <div style={{ fontWeight: 'bold', fontSize: '18px', textAlign: 'right' }}>
+                                          Total Cost: $ {calculateTotalCost()}
+                                        </div>
+                                        <div style={{ fontWeight: 'bold', fontSize: '18px', textAlign: 'right', color: 'red' }}>
+                                          Deposit Total (30% of Total Cost): $ {calculateDepositAmount()}
+                                        </div>
+                                        <PayPalButtons
+                                          style={{ layout: 'vertical', marginTop: '10px' }}
+                                          createOrder={(data, actions) => {
+                                            return actions.order.create({
+                                              purchase_units: [
+                                                {
+                                                  amount: {
+                                                    value: calculateDepositAmount(),
+                                                  },
+                                                },
+                                              ],
+                                            });
+                                          }}
+                                          onApprove={async (data, actions) => {
+                                            const order = await actions.order.capture();
+                                            console.log('PayPal Order:', order);
+                                            alert(`Transaction completed by ${order.payer.name.given_name}`);
+                                            handleCheckout();
+                                          }}
+                                          onError={(err) => {
+                                            console.error('PayPal Checkout Error:', err);
+                                            alert('Payment failed');
+                                          }}
+                                        />
+                                      </div>
                                     </div>
 
-                                   
+
                                     <div style={{ flex: 1 }}>
                                       <h2 style={{ fontSize: '24px', color: '#333', marginBottom: '20px' }}>Booking Details</h2>
                                       <form>
@@ -1902,7 +1977,7 @@ export default function Banner({ onClose }) {
                             </>
                           )}
 
-                         
+
                           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
                             {popupStep > 1 && (
                               <button
@@ -1915,7 +1990,7 @@ export default function Banner({ onClose }) {
                                   background: 'none',
                                 }}
                               >
-                                &#8592; 
+                                &#8592;
                               </button>
                             )}
 
@@ -1930,7 +2005,7 @@ export default function Banner({ onClose }) {
                                   background: 'none',
                                 }}
                               >
-                                &#8594; 
+                                &#8594;
                               </button>
                             )}
                           </div>
